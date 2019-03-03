@@ -1,0 +1,61 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
+    dependencies {
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlint_version"
+    }
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.21'
+}
+
+apply plugin: "jacoco"
+apply plugin: "org.jlleitschuh.gradle.ktlint"
+
+group 'dev.christianbroomfield'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    testImplementation "io.kotlintest:kotlintest-runner-junit5:$kotlintest_version"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5_version"
+    testImplementation "io.mockk:mockk:$mockk_version"
+    testImplementation("io.strikt:strikt-core:$strikt_version")
+    
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junit5_version"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+jacocoTestReport {
+    // Adjust the output of the test report
+    reports {
+        xml.enabled true
+        csv.enabled false
+    }
+}
+
+test {
+    useJUnitPlatform()
+    jacoco {
+        destinationFile = file("${buildDir}/jacoco/test.exec")
+    }
+}
+
+test.finalizedBy(jacocoTestReport)

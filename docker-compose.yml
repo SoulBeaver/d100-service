@@ -1,0 +1,7 @@
+version: '3'
+services:
+  web:
+    build: .
+    image: christianbroomfield/d100
+    ports:
+      - "80:9000"

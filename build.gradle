@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 buildscript {
     repositories {
         maven {
@@ -12,6 +14,9 @@ buildscript {
 
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.21'
+    id 'com.github.johnrengelman.shadow' version '5.0.0'
+
+    id 'application'
 }
 
 apply plugin: "jacoco"
@@ -26,6 +31,10 @@ repositories {
 }
 
 dependencies {
+    implementation group: "org.http4k", name: "http4k-core", version: "3.114.0"
+    implementation group: "org.http4k", name: "http4k-server-undertow", version: "3.114.0"
+    implementation group: "org.http4k", name: "http4k-client-apache", version: "3.114.0"
+    
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
     testImplementation "io.kotlintest:kotlintest-runner-junit5:$kotlintest_version"
@@ -41,6 +50,16 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+tasks.withType(ShadowJar) {
+    baseName = "d100-web"
+    classifier = ""
+    version = ""
+}
+
+application {
+    mainClassName = "dev.christianbroomfield.d100web.MainKt"
 }
 
 jacocoTestReport {

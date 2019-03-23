@@ -28,19 +28,36 @@ version '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
     jcenter()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'https://oss.sonatype.org/content/repositories/releases' }
 }
 
 dependencies {
-    implementation group: "org.http4k", name: "http4k-core", version: "3.114.0"
-    implementation group: "org.http4k", name: "http4k-server-undertow", version: "3.114.0"
-    implementation group: "org.http4k", name: "http4k-client-apache", version: "3.114.0"
-    
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    implementation "dev.christianbroomfield:d100:$d100_version"
+
+    implementation "org.http4k:http4k-core:$http4k_version"
+    implementation "org.http4k:http4k-server-undertow:$http4k_version"
+    implementation "org.http4k:http4k-format-jackson:$http4k_version"
+    implementation "org.http4k:http4k-client-okhttp:$http4k_version"
+    implementation "org.http4k:http4k-testing-hamkrest:$http4k_version"
+
+    implementation "org.litote.kmongo:kmongo:$kmongo_version"
+    implementation "org.litote.kmongo:kmongo-coroutine:$kmongo_version"
+
+    implementation "io.github.microutils:kotlin-logging:$kotlin_logging_version"
+    implementation "org.slf4j:slf4j-api:$slf4j_version"
+    implementation "org.apache.logging.log4j:log4j-api:$log4j2_version"
+    implementation "org.apache.logging.log4j:log4j-core:$log4j2_version"
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl:$log4j2_version"
 
     testImplementation "io.kotlintest:kotlintest-runner-junit5:$kotlintest_version"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5_version"
     testImplementation "io.mockk:mockk:$mockk_version"
-    testImplementation("io.strikt:strikt-core:$strikt_version")
+    testImplementation "com.natpryce:hamkrest:$hamkrest_version"
+
+    testImplementation "de.flapdoodle.embed:de.flapdoodle.embed.mongo:$embed_mongo_version"
     
     testRuntime "org.junit.jupiter:junit-jupiter-engine:$junit5_version"
 }

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "1",
+    "tables": [
+      {
+        "header": {
+          "rollsRequired": 1,
+          "dieSize": 1,
+          "descriptor": "Test Header"
+        },
+        "results": [
+          "Test Result"
+        ],
+        "rollBehavior": "REPEAT"
+      }
+    ]
+  },
+  {
+    "name": "2",
+    "tables": [
+      {
+        "header": {
+          "rollsRequired": 1,
+          "dieSize": 1,
+          "descriptor": "Test Header"
+        },
+        "results": [
+          "Test Result"
+        ],
+        "rollBehavior": "REPEAT"
+      }
+    ]
+  },
+  {
+    "name": "3",
+    "tables": [
+      {
+        "header": {
+          "rollsRequired": 1,
+          "dieSize": 1,
+          "descriptor": "Test Header"
+        },
+        "results": [
+          "Test Result"
+        ],
+        "rollBehavior": "REPEAT"
+      }
+    ]
+  }
+]

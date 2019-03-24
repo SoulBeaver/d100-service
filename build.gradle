@@ -45,10 +45,11 @@ dependencies {
     testImplementation "org.http4k:http4k-testing-hamkrest:$http4k_version"
 
     implementation 'io.micrometer:micrometer-registry-prometheus:latest.release'
-    
+
     implementation "org.litote.kmongo:kmongo:$kmongo_version"
     implementation "org.litote.kmongo:kmongo-coroutine:$kmongo_version"
 
+    compile "com.xenomachina:kotlin-argparser:$argparser_version"
     implementation "io.github.microutils:kotlin-logging:$kotlin_logging_version"
     implementation "org.slf4j:slf4j-api:$slf4j_version"
     implementation "org.apache.logging.log4j:log4j-api:$log4j2_version"

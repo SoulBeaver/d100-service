@@ -1,0 +1,47 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+### Get all TableGroups
+GET localhost:9000/table
+Content-Type: application/json
+
+### Get a specific TableGroup
+GET localhost:9000/table/test
+Content-Type: application/json
+
+### Create a TableGroup
+POST localhost:9000/table
+Content-Type: application/json
+
+{
+  "name": "test",
+  "tables": [
+    {
+      "header": {
+        "rollsRequired": 1,
+        "dieSize": 1,
+        "descriptor": "Test Header"
+      },
+      "results": [
+        "Test Result"
+      ],
+      "rollBehavior": "REPEAT"
+    }
+  ]
+}
+
+### Delete a TableGroup
+DELETE localhost:9000/table/test
+Content-Type: application/json
+
+### Ping
+GET localhost:9000/ping
+
+### Prometheus
+GET localhost:9000/prometheus
+
+###

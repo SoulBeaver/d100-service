@@ -3,6 +3,8 @@ package dev.christianbroomfield.d100web
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.natpryce.hamkrest.assertion.assertThat
+import com.natpryce.hamkrest.contains
+import com.natpryce.hamkrest.containsSubstring
 import com.natpryce.hamkrest.equalTo
 import dev.christianbroomfield.d100web.model.TableGroup
 import dev.christianbroomfield.d100web.util.EmbeddedMongoDB
@@ -123,6 +125,23 @@ class ServerTest : DescribeSpec() {
                     mapper.readValue(response.bodyString(), TableGroup::class.java),
                     equalTo(tableGroup())
                 )
+            }
+        }
+
+        describe("sending a ping") {
+            it("returns pong") {
+                client(Request(GET, "http://localhost:$port/ping")).answerShouldBe("pong")
+            }
+        }
+
+        describe("scraping metrics") {
+            it("returns a list of all metrics that includes a count and timer") {
+                val response = client(Request(GET, "http://localhost:$port/prometheus"))
+
+                assertThat(response.status, equalTo(Status.OK))
+                assertThat(response.bodyString(), containsSubstring("# HELP http_server_request_count_total Total number of server requests"))
+                assertThat(response.bodyString(), containsSubstring("# HELP http_server_request_latency_seconds_max Timing of server requests"))
+                assertThat(response.bodyString(), containsSubstring("# HELP http_server_request_latency_seconds Timing of server requests"))
             }
         }
     }

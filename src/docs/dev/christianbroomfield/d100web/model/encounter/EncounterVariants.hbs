@@ -13,26 +13,17 @@
     <a href="/day/Hellscape" class="button">Hellscape</a>
 </header>
 
-<h1>Your Adventuring Day!</h1>
+<h1>Please choose one of the following difficulties for your adventuring day:</h1>
 <hr/>
 
-<h4>The weather can be described as: {{weather}}</h4>
-
-<div class="bordered">
-    {{#each events}}
-        <p>
-            <strong>{{timeOfDay}}: {{eventType}}!</strong>
-            <br/>
-            {{#each results}}
-                {{this}}
-                <br/>
-            {{/each}}
-        </p>
-    {{/each}}
-</div>
-
 <div>
-    <p>Refresh the page for another adventuring day of the same difficulty or choose a new one at the top of the page.</p>
+    <ul>
+        {{#each variants}}
+            <li>
+                <a href="{{relativeUrl}}">{{difficulty}} - {{description}}.</a>
+            </li>
+        {{/each}}
+    </ul>
 </div>
 
 <footer class="sticky">

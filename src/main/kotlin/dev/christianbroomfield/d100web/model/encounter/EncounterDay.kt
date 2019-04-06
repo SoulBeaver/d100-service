@@ -2,14 +2,27 @@ package dev.christianbroomfield.d100web.model.encounter
 
 import org.http4k.template.ViewModel
 
-enum class Difficulty(val threshold: Int) {
-    Easy(1),
-    Challenging(2),
-    Harsh(3),
-    Unfair(4),
-    Hellscape(5),
-    Unreal(6)
-}
+data class EncounterVariants(
+    val variants: List<EncounterVariant>
+) : ViewModel
+
+data class EncounterVariant(
+    val difficulty: Difficulty,
+    val description: String,
+    val relativeUrl: String
+)
+
+data class EncounterDay(
+    val weather: String,
+
+    val events: List<Event>
+) : ViewModel
+
+data class Event(
+    val timeOfDay: TimeOfDay,
+    val eventType: EventType,
+    val results: List<String>
+)
 
 enum class TimeOfDay {
     Morning,
@@ -20,13 +33,18 @@ enum class TimeOfDay {
     Predawn
 }
 
-data class EncounterDay(
-    val weather: String,
+enum class EventType {
+    Nothing,
+    Encounter,
+    Discovery,
+    Treasure
+}
 
-    val morningEvent: String,
-    val afternoonEvent: String,
-    val eveningEvent: String,
-    val duskEvent: String,
-    val midnightEvent: String,
-    val predawnEvent: String
-) : ViewModel
+enum class Difficulty(val threshold: Int) {
+    Easy(1),
+    Challenging(2),
+    Harsh(3),
+    Unfair(4),
+    Hellscape(5),
+    Unreal(6)
+}

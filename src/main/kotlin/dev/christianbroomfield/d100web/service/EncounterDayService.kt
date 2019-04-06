@@ -3,8 +3,14 @@ package dev.christianbroomfield.d100web.service
 import dev.christianbroomfield.d100.RollMaster
 import dev.christianbroomfield.d100web.model.TableGroupName
 import dev.christianbroomfield.d100web.model.encounter.EncounterDay
+import dev.christianbroomfield.d100web.model.encounter.Event
+import dev.christianbroomfield.d100web.model.encounter.EventType
+import dev.christianbroomfield.d100web.model.encounter.TimeOfDay
 import mu.KotlinLogging
 import kotlin.random.Random
+
+private const val D6_MAX = 6
+private const val D10_MAX = 10
 
 private val log = KotlinLogging.logger {}
 class EncounterDayService(
@@ -12,16 +18,17 @@ class EncounterDayService(
     private val random: Random = Random.Default,
     private val rollMaster: RollMaster = RollMaster()
 ) {
+    private val d6 = { random.nextInt(D6_MAX) + 1 }
+    private val d10 = { random.nextInt(D10_MAX) + 1 }
 
     fun generateEncounterDay(difficulty: Int): EncounterDay {
+        val events = TimeOfDay.values().map { timeofDay ->
+            generateEvent(difficulty, timeofDay)
+        }
+
         return EncounterDay(
-            generateWeather(),
-            generateEvent(difficulty),
-            generateEvent(difficulty),
-            generateEvent(difficulty),
-            generateEvent(difficulty),
-            generateEvent(difficulty),
-            generateEvent(difficulty)
+            weather = generateWeather(),
+            events = events
         )
     }
 
@@ -31,50 +38,68 @@ class EncounterDayService(
         return rollMaster.roll(weatherTable.tables, hideDescriptor = true).joinToString("\n")
     }
 
-    private fun generateEvent(difficulty: Int): String {
-        val encounterRoll = roll()
-        val discoveryRoll = roll()
-        val treasureRoll  = roll()
+    private fun generateEvent(difficulty: Int, timeOfDay: TimeOfDay): Event {
+        val encounterRoll = d6()
+        val discoveryRoll = d6()
+        val treasureRoll = d10()
 
         log.debug { "Encounter=$encounterRoll; Discovery=$discoveryRoll; Treasure=$treasureRoll" }
 
         return when {
-            encounterRoll <= difficulty -> "Encounter!\n\n${encounter()}"
+            encounterRoll <= difficulty -> encounter(timeOfDay)
 
-            encounterRoll == 6 -> {
+            encounterRoll == D6_MAX -> {
                 when {
-                    treasureRoll == 6 -> "Treasure!\n\n${treasure()}"
-                    discoveryRoll >= difficulty -> "Discovery!\n\n${discovery()}"
-                    else -> "Keep on trekking!"
+                    discoveryRoll == D6_MAX -> discovery(timeOfDay)
+                    treasureRoll == D10_MAX -> treasure(timeOfDay)
+                    else -> mundane(timeOfDay)
                 }
             }
 
-            else -> "Keep on trekking!"
+            else -> mundane(timeOfDay)
         }
     }
 
-    private fun encounter(): String {
+    private fun encounter(timeOfDay: TimeOfDay): Event {
         log.debug { "Rolling an encounter." }
 
         val encounter = tableService.getOneOf("encounter_")
-        return rollMaster.roll(encounter.tables).joinToString("\n")
+        return Event(
+            timeOfDay = timeOfDay,
+            eventType = EventType.Encounter,
+            results = rollMaster.roll(encounter.tables)
+        )
     }
 
-    private fun discovery(): String {
+    private fun discovery(timeOfDay: TimeOfDay): Event {
         log.debug { "Rolling a discovery." }
 
         val discovery = tableService.getOneOf("discovery_")
-        return rollMaster.roll(discovery.tables).joinToString("\n")
+        return Event(
+            timeOfDay = timeOfDay,
+            eventType = EventType.Discovery,
+            results = rollMaster.roll(discovery.tables)
+        )
     }
 
-    private fun treasure(): String {
+    private fun treasure(timeOfDay: TimeOfDay): Event {
         log.debug { "Rolling a treasure." }
 
         val treasure = tableService.getOneOf("treasure_")
-        return rollMaster.roll(treasure.tables).joinToString("\n")
+        return Event(
+            timeOfDay = timeOfDay,
+            eventType = EventType.Treasure,
+            results = rollMaster.roll(treasure.tables)
+        )
     }
 
-    private fun roll(): Int {
-        return random.nextInt(6) + 1
+    private fun mundane(timeOfDay: TimeOfDay): Event {
+        log.debug { "Just another day in the trenches." }
+
+        return Event(
+            timeOfDay = timeOfDay,
+            eventType = EventType.Nothing,
+            results = emptyList()
+        )
     }
 }

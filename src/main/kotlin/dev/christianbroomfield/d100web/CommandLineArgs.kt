@@ -7,11 +7,11 @@ import java.io.File
 
 class CommandLineArgs(parser: ArgParser) {
     val debug by parser.flagging(
-        "-d", "--debug",
+        "-D", "--debug",
         help = "Enable Debug Mode")
 
     val data by parser.storing(
-        "-s", "--data-directory",
+        "-d", "--data-directory",
         help = "Directory from which to populate the MongoDB on startup. Must be in JSON format."
     ).default<String?>(null)
         .addValidator {

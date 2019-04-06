@@ -39,12 +39,12 @@ class EncounterDayService(
         log.debug { "Encounter=$encounterRoll; Discovery=$discoveryRoll; Treasure=$treasureRoll" }
 
         return when {
-            encounterRoll <= difficulty -> encounter()
+            encounterRoll <= difficulty -> "Encounter!\n\n${encounter()}"
 
             encounterRoll == 6 -> {
                 when {
-                    treasureRoll == 6 -> treasure()
-                    discoveryRoll >= difficulty -> discovery()
+                    treasureRoll == 6 -> "Treasure!\n\n${treasure()}"
+                    discoveryRoll >= difficulty -> "Discovery!\n\n${discovery()}"
                     else -> "Keep on trekking!"
                 }
             }

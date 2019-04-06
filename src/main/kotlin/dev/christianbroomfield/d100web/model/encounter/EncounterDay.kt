@@ -1,12 +1,14 @@
 package dev.christianbroomfield.d100web.model.encounter
 
-enum class Difficulty {
-    Easy,
-    Challenging,
-    Harsh,
-    Unfair,
-    Hellscape,
-    Unreal
+import org.http4k.template.ViewModel
+
+enum class Difficulty(val threshold: Int) {
+    Easy(1),
+    Challenging(2),
+    Harsh(3),
+    Unfair(4),
+    Hellscape(5),
+    Unreal(6)
 }
 
 enum class TimeOfDay {
@@ -27,4 +29,4 @@ data class EncounterDay(
     val duskEvent: String,
     val midnightEvent: String,
     val predawnEvent: String
-)
+) : ViewModel

@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+    <title>Your Adventuring Day</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+    <style>
+        .grad {
+            background: #E0EAFC;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #CFDEF3, #E0EAFC);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #CFDEF3, #E0EAFC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+    </style>
+</head>
+<body class="grad">
+
+<header>
+    <a href="/day/Easy" class="button">Easy</a>
+    <a href="/day/Challenging" class="button">Challenging</a>
+    <a href="/day/Harsh" class="button">Harsh</a>
+    <a href="/day/Unfair" class="button">Unfair</a>
+    <a href="/day/Hellscape" class="button">Hellscape</a>
+</header>
+
+<h1>Your Adventuring Day!</h1>
+<hr/>
+
+<h4>The weather can be described as: {{weather}}</h4>
+
+<div class="bordered">
+    <p>
+        <strong>At dawn:</strong>
+        <br/>
+        {{morningEvent}}
+    </p>
+    <p>
+        <strong>In the afternoon:</strong>
+        <br/>
+        {{afternoonEvent}}
+    </p>
+    <p>
+        <strong>During the evening:</strong>
+        <br/>
+        {{eveningEvent}}
+    </p>
+    <p>
+        <strong>At dusk:</strong>
+        <br/>
+        {{duskEvent}}
+    </p>
+    <p>
+        <strong>Around midnight:</strong>
+        <br/>
+        {{midnightEvent}}
+    </p>
+    <p>
+        <strong>Just before dawn:</strong>
+        <br/>
+        {{predawnEvent}}
+    </p>
+</div>
+
+<footer class="sticky">
+    <p>Looking for the code? Checkout the <a href="https://github.com/SoulBeaver/d100-service">Github</a> repo!</p>
+</footer>
+
+</body>
+</html>

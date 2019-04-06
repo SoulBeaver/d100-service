@@ -47,8 +47,8 @@ object App {
 
         return assembleFilters(config, registry).then(
             routes(
-                "/table" bind tableResource(),
                 "/day" bind encounterDayResource(),
+                "/table" bind tableResource(),
 
                 "/ping" bind pingResource(),
                 "/prometheus" bind Method.GET to prometheusResource()

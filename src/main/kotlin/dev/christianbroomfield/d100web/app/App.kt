@@ -1,10 +1,13 @@
 package dev.christianbroomfield.d100web.app
 
 import dev.christianbroomfield.d100web.D100Configuration
+import dev.christianbroomfield.d100web.resource.EncounterDayResource
 import dev.christianbroomfield.d100web.resource.PingResource
 import dev.christianbroomfield.d100web.resource.PrometheusResource
 import dev.christianbroomfield.d100web.resource.TableResource
+import dev.christianbroomfield.d100web.service.EncounterDayService
 import dev.christianbroomfield.d100web.service.TableService
+import dev.christianbroomfield.d100web.task.StartupTask
 import io.micrometer.core.instrument.MeterRegistry
 import io.micrometer.prometheus.PrometheusConfig
 import io.micrometer.prometheus.PrometheusMeterRegistry
@@ -32,12 +35,20 @@ object App {
         val tableService = TableService(mongodb)
         val tableResource = TableResource(tableService)
 
+        val encounterDayService = EncounterDayService(tableService)
+        val encounterDayResource = EncounterDayResource(encounterDayService)
+
         val pingResource = PingResource()
         val prometheusResource = PrometheusResource(registry)
+
+        if (config.startup.enabled) {
+            StartupTask(mongodb, config.startup.dataDirectory)
+        }
 
         return assembleFilters(config, registry).then(
             routes(
                 "/table" bind tableResource(),
+                "/day" bind encounterDayResource(),
 
                 "/ping" bind pingResource(),
                 "/prometheus" bind Method.GET to prometheusResource()

@@ -7,13 +7,17 @@ import org.http4k.server.asServer
 
 fun main(args: Array<String>) {
     ArgParser(args).parseInto(::CommandLineArgs).run {
-        val config = when {
-            debug -> D100Configuration(debug = true)
-            else -> D100Configuration()
-        }
+        val config = D100Configuration(
+            debug = debug,
+            startup = when {
+                data != null -> StartupConfiguration(enabled = true, dataDirectory = data!!)
+                else -> StartupConfiguration()
+            }
+        )
 
         d100Server(config).start()
     }
 }
 
-fun d100Server(config: D100Configuration) = App(config).asServer(Undertow(config.port))
+fun d100Server(config: D100Configuration) =
+    App(config).asServer(Undertow(config.port))

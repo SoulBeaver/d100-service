@@ -33,36 +33,50 @@ repositories {
 }
 
 dependencies {
+    // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
+    // Random Table rolling
     implementation "dev.christianbroomfield:d100:$d100_version"
 
+    // Http4k
     implementation "org.http4k:http4k-core:$http4k_version"
     implementation "org.http4k:http4k-server-undertow:$http4k_version"
     implementation "org.http4k:http4k-format-jackson:$http4k_version"
     implementation "org.http4k:http4k-client-okhttp:$http4k_version"
     implementation "org.http4k:http4k-metrics-micrometer:$http4k_version"
     testImplementation "org.http4k:http4k-testing-hamkrest:$http4k_version"
+    
+    // JSON
+    implementation "com.beust:klaxon:$klaxon_version"
+    
+    // Metrics
+    implementation "io.micrometer:micrometer-registry-prometheus:$micrometer_prometheus_version"
 
-    implementation 'io.micrometer:micrometer-registry-prometheus:latest.release'
-
+    // MongoDB
     implementation "org.litote.kmongo:kmongo:$kmongo_version"
     implementation "org.litote.kmongo:kmongo-coroutine:$kmongo_version"
 
+    // CLI
     compile "com.xenomachina:kotlin-argparser:$argparser_version"
+    
+    // Logging
     implementation "io.github.microutils:kotlin-logging:$kotlin_logging_version"
     implementation "org.slf4j:slf4j-api:$slf4j_version"
     implementation "org.apache.logging.log4j:log4j-api:$log4j2_version"
     implementation "org.apache.logging.log4j:log4j-core:$log4j2_version"
     implementation "org.apache.logging.log4j:log4j-slf4j-impl:$log4j2_version"
 
+    // Test Library
     testImplementation "io.kotlintest:kotlintest-runner-junit5:$kotlintest_version"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5_version"
     testImplementation "io.mockk:mockk:$mockk_version"
     testImplementation "com.natpryce:hamkrest:$hamkrest_version"
 
+    // Embedded MongoDB
     testImplementation "de.flapdoodle.embed:de.flapdoodle.embed.mongo:$embed_mongo_version"
     
+    // JUnit Engine
     testRuntime "org.junit.jupiter:junit-jupiter-engine:$junit5_version"
 }
 

@@ -3,6 +3,7 @@ package dev.christianbroomfield.d100web.resource
 import dev.christianbroomfield.d100web.model.TableGroup
 import dev.christianbroomfield.d100web.model.TableGroupName
 import dev.christianbroomfield.d100web.service.TableService
+import mu.KotlinLogging
 import org.http4k.core.Body
 import org.http4k.core.Method.GET
 import org.http4k.core.Method.POST
@@ -18,6 +19,7 @@ import org.http4k.routing.routes
 import org.http4k.format.Jackson.auto
 import org.http4k.lens.string
 
+private val log = KotlinLogging.logger {}
 class TableResource(private val service: TableService) {
     private val pathTableGroupName = Path.string().of("name")
 

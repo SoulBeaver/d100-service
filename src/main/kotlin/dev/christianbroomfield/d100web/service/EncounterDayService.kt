@@ -35,7 +35,10 @@ class EncounterDayService(
     private fun generateWeather(): String {
         val weatherTable = tableService.get(TableGroupName("default_SpringWeather"))!!
 
-        return rollMaster.roll(weatherTable.tables, hideDescriptor = true).joinToString("\n")
+        return rollMaster.roll(weatherTable.tables, hideDescriptor = true)
+            .joinToString("\n").also {
+                log.debug { "$it" }
+            }
     }
 
     private fun generateEvent(difficulty: Int, timeOfDay: TimeOfDay): Event {
@@ -50,8 +53,8 @@ class EncounterDayService(
 
             encounterRoll == D6_MAX -> {
                 when {
-                    discoveryRoll == D6_MAX -> discovery(timeOfDay)
                     treasureRoll == D10_MAX -> treasure(timeOfDay)
+                    discoveryRoll == D6_MAX -> discovery(timeOfDay)
                     else -> mundane(timeOfDay)
                 }
             }
@@ -61,45 +64,45 @@ class EncounterDayService(
     }
 
     private fun encounter(timeOfDay: TimeOfDay): Event {
-        log.debug { "Rolling an encounter." }
-
         val encounter = tableService.getOneOf("encounter_")
         return Event(
             timeOfDay = timeOfDay,
             eventType = EventType.Encounter,
-            results = rollMaster.roll(encounter.tables)
-        )
+            results = rollMaster.roll(encounter.tables, hideDescriptor = true)
+        ).also {
+            log.debug { "$it" }
+        }
     }
 
     private fun discovery(timeOfDay: TimeOfDay): Event {
-        log.debug { "Rolling a discovery." }
-
         val discovery = tableService.getOneOf("discovery_")
         return Event(
             timeOfDay = timeOfDay,
             eventType = EventType.Discovery,
-            results = rollMaster.roll(discovery.tables)
-        )
+            results = rollMaster.roll(discovery.tables, hideDescriptor = true)
+        ).also {
+            log.debug { "$it" }
+        }
     }
 
     private fun treasure(timeOfDay: TimeOfDay): Event {
-        log.debug { "Rolling a treasure." }
-
         val treasure = tableService.getOneOf("treasure_")
         return Event(
             timeOfDay = timeOfDay,
             eventType = EventType.Treasure,
-            results = rollMaster.roll(treasure.tables)
-        )
+            results = rollMaster.roll(treasure.tables, hideDescriptor = true)
+        ).also {
+            log.debug { "$it" }
+        }
     }
 
     private fun mundane(timeOfDay: TimeOfDay): Event {
-        log.debug { "Just another day in the trenches." }
-
         return Event(
             timeOfDay = timeOfDay,
             eventType = EventType.Nothing,
             results = emptyList()
-        )
+        ).also {
+            log.debug { "$it" }
+        }
     }
 }

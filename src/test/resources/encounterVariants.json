@@ -1,0 +1,23 @@
+{
+  "variants": [{
+    "difficulty": "Easy",
+    "description": "Easy",
+    "relativeUrl": "/Easy"
+  }, {
+    "difficulty": "Challenging",
+    "description": "Challenging",
+    "relativeUrl": "/Challenging"
+  }, {
+    "difficulty": "Harsh",
+    "description": "Harsh",
+    "relativeUrl": "/Harsh"
+  }, {
+    "difficulty": "Unfair",
+    "description": "Unfair",
+    "relativeUrl": "/Unfair"
+  }, {
+    "difficulty": "Hellscape",
+    "description": "Hellscape",
+    "relativeUrl": "/Hellscape"
+  }]
+}

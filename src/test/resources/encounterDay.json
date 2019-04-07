@@ -1,0 +1,20 @@
+{
+  "weather": "Some lovely weather here!",
+  "events": [{
+    "timeOfDay": "Morning",
+    "eventType": "Nothing",
+    "results": []
+  }, {
+    "timeOfDay": "Afternoon",
+    "eventType": "Encounter",
+    "results": ["A pack of goblins!"]
+  }, {
+    "timeOfDay": "Evening",
+    "eventType": "Discovery",
+    "results": ["An abandoned castle!"]
+  }, {
+    "timeOfDay": "Dusk",
+    "eventType": "Treasure",
+    "results": ["A sparkling dagger!"]
+  }]
+}

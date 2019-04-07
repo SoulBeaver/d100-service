@@ -17,35 +17,35 @@ class TableService(private val client: MongoClient) {
     private val tableGroupCollection = tableGroupDatabase.getCollection<TableGroup>()
 
     fun getAll(): List<TableGroup> {
-        log.debug { "Getting all tables." }
-
-        return tableGroupCollection.find().toList()
+        return tableGroupCollection.find().toList().also {
+            log.debug { "getAll: $it" }
+        }
     }
 
     fun get(tableGroupName: TableGroupName): TableGroup? {
-        log.debug { "Getting table with id $tableGroupName." }
-
-        return tableGroupCollection.findOne(TableGroup::name eq tableGroupName.name)
+        return tableGroupCollection.findOne(TableGroup::name eq tableGroupName.name).also {
+            log.debug { "get $tableGroupName: $it" }
+        }
     }
 
     fun getOneOf(prefix: String): TableGroup {
-        log.debug { "Getting a ${prefix}_ table" }
-
         val matchingTables = tableGroupCollection.find(TableGroup::name regex prefix).toList()
-        return matchingTables[Random.nextInt(matchingTables.size)]
+        return matchingTables[Random.nextInt(matchingTables.size)].also {
+            log.debug { "getOneOf for $prefix: $it" }
+        }
     }
 
     fun create(table: TableGroup): TableGroup {
-        log.debug { "Creating a new table with payload $table." }
-
         tableGroupCollection.insertOne(table)
 
-        return table
+        return table.also {
+            log.debug { "create $table: $it" }
+        }
     }
 
     fun delete(tableGroupName: TableGroupName): TableGroup? {
-        log.debug { "Deleting table with id $tableGroupName" }
-
-        return tableGroupCollection.findOneAndDelete(TableGroup::name eq tableGroupName.name)
+        return tableGroupCollection.findOneAndDelete(TableGroup::name eq tableGroupName.name).also {
+            log.debug { "delete $tableGroupName: $it" }
+        }
     }
 }

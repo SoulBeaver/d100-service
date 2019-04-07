@@ -25,6 +25,10 @@ object StartupTask {
     }
 
     private fun parseDir(collection: MongoCollection<TableGroup>, dir: File, prefix: String) {
+        require(dir.listFiles().isNotEmpty()) {
+            "Cannot create an adventuring day without entries for $prefix! No tables found in ${dir.absolutePath}"
+        }
+
         for (file in dir.listFiles()) {
             log.info("Reading file ${file.name}")
 

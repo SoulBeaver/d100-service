@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+    <title>Your Adventuring Day</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<header>
+    <a href="/day/Easy" class="button">Easy</a>
+    <a href="/day/Challenging" class="button">Challenging</a>
+    <a href="/day/Harsh" class="button">Harsh</a>
+    <a href="/day/Unfair" class="button">Unfair</a>
+    <a href="/day/Hellscape" class="button">Hellscape</a>
+</header>
+
+<div class="container">
+    <div class="row">
+        <h1>Your Adventuring Day.</h1>
+    </div>
+
+    <div class="row">
+        <h4>The weather can be described as: {{weather}}</h4>
+    </div>
+
+    <div class="bordered">
+        {{#each events}}
+            <div class="row cols-sm-6">
+                <p>
+                    <strong>{{timeOfDay}}: {{eventType}}!</strong>
+                    <br/>
+                    {{#each results}}
+                        {{this}}
+                        <br/>
+                    {{/each}}
+                </p>
+            </div>
+        {{/each}}
+    </div>
+
+    <div>
+        <p>Refresh the page for another adventuring day of the same difficulty or choose a new one at the top of the
+            page.</p>
+    </div>
+</div>
+
+<footer class="sticky">
+    <p>Looking for the code? Checkout the <a href="https://github.com/SoulBeaver/d100-service">Github</a> repo!</p>
+</footer>
+
+</body>
+</html>

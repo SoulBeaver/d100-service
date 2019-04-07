@@ -8,7 +8,7 @@ import dev.christianbroomfield.d100.model.TableHeader
 import dev.christianbroomfield.d100web.model.TableGroup
 import dev.christianbroomfield.d100web.model.TableGroupName
 import dev.christianbroomfield.d100web.model.encounter.Difficulty
-import dev.christianbroomfield.d100web.model.encounter.EncounterDay
+import dev.christianbroomfield.d100web.model.encounter.AdventuringDay
 import dev.christianbroomfield.d100web.model.encounter.Event
 import dev.christianbroomfield.d100web.model.encounter.EventType
 import dev.christianbroomfield.d100web.model.encounter.TimeOfDay
@@ -18,7 +18,7 @@ import io.mockk.mockk
 import io.mockk.verifyAll
 import kotlin.random.Random
 
-class EncounterDayServiceTest : DescribeSpec() {
+class AdventuringDayServiceTest : DescribeSpec() {
     private val tableService = mockk<TableService>()
     private val rollMaster = RollMaster(object : Random() {
         override fun nextBits(bitCount: Int): Int = 0
@@ -52,8 +52,8 @@ class EncounterDayServiceTest : DescribeSpec() {
     }
 
     init {
-        describe("An EncounterDayService") {
-            val service = EncounterDayService(
+        describe("An AdventuringDayService") {
+            val service = AdventuringDayService(
                 tableService,
                 random,
                 rollMaster
@@ -99,15 +99,15 @@ class EncounterDayServiceTest : DescribeSpec() {
                 val adventuringDay = service.generateEncounterDay(Difficulty.Easy.threshold)
 
                 it("has one of each type of event and mild weather") {
-                    val expected = EncounterDay(
+                    val expected = AdventuringDay(
                         weather = "Mild",
                         events = listOf(
-                            Event(TimeOfDay.Morning, EventType.Encounter, listOf("A pack of goblins!")),
+                            Event(TimeOfDay.Morning, EventType.Encounter, listOf("Goblins A pack of goblins!")),
                             Event(TimeOfDay.Afternoon, EventType.Nothing, emptyList()),
-                            Event(TimeOfDay.Evening, EventType.Discovery, listOf("An abandoned castle!")),
+                            Event(TimeOfDay.Evening, EventType.Discovery, listOf("Castles An abandoned castle!")),
                             Event(TimeOfDay.Dusk, EventType.Nothing, emptyList()),
                             Event(TimeOfDay.Midnight, EventType.Nothing, emptyList()),
-                            Event(TimeOfDay.Predawn, EventType.Treasure, listOf("A sparkling dagger!"))
+                            Event(TimeOfDay.Predawn, EventType.Treasure, listOf("Daggers A sparkling dagger!"))
                         )
                     )
 

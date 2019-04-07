@@ -7,45 +7,43 @@ import com.natpryce.hamkrest.equalTo
 import dev.christianbroomfield.d100web.util.fixture
 import io.kotlintest.specs.DescribeSpec
 
-class EncounterVariantsTest : DescribeSpec() {
+class AdventuringDayTest : DescribeSpec() {
     private val mapper = ObjectMapper().registerKotlinModule()
 
     init {
-        describe("An EncounterVariants object") {
-            val encounterDay = EncounterVariants(
-                variants = listOf(
-                    EncounterVariant(Difficulty.Easy, "Easy", "/${Difficulty.Easy}"),
-                    EncounterVariant(Difficulty.Challenging, "Challenging", "/${Difficulty.Challenging}"),
-                    EncounterVariant(Difficulty.Harsh, "Harsh", "/${Difficulty.Harsh}"),
-                    EncounterVariant(Difficulty.Unfair, "Unfair", "/${Difficulty.Unfair}"),
-                    EncounterVariant(Difficulty.Hellscape, "Hellscape", "/${Difficulty.Hellscape}")
+        describe("An AdventuringDay object") {
+            val encounterDay = AdventuringDay(
+                weather = "Some lovely weather here!",
+                events = listOf(
+                    Event(TimeOfDay.Morning, EventType.Nothing, emptyList()),
+                    Event(TimeOfDay.Afternoon, EventType.Encounter, listOf("A pack of goblins!")),
+                    Event(TimeOfDay.Evening, EventType.Discovery, listOf("An abandoned castle!")),
+                    Event(TimeOfDay.Dusk, EventType.Treasure, listOf("A sparkling dagger!"))
                 )
             )
 
             context("serialization") {
                 it("serializes all values properly") {
                     val expected = mapper.writeValueAsString(
-                        mapper.readValue(fixture("encounterVariants.json"), EncounterVariants::class.java)
+                        mapper.readValue(fixture("encounterDay.json"), AdventuringDay::class.java)
                     )
 
                     assertThat(
                         mapper.writeValueAsString(encounterDay),
-                        equalTo(expected)
-                    )
+                        equalTo(expected))
                 }
             }
 
             context("deserialization") {
                 it("deserializes all values properly") {
                     val expected = mapper.readValue(
-                        fixture("encounterVariants.json"),
-                        EncounterVariants::class.java
+                        fixture("encounterDay.json"),
+                        AdventuringDay::class.java
                     )
 
                     assertThat(
                         encounterDay,
-                        equalTo(expected)
-                    )
+                        equalTo(expected))
                 }
             }
         }

@@ -2,17 +2,17 @@ package dev.christianbroomfield.d100web.model.encounter
 
 import org.http4k.template.ViewModel
 
-data class EncounterVariants(
-    val variants: List<EncounterVariant>
+data class AdventuringDayVariants(
+    val variants: List<AdventuringDayVariant>
 ) : ViewModel
 
-data class EncounterVariant(
+data class AdventuringDayVariant(
     val difficulty: Difficulty,
     val description: String,
     val relativeUrl: String
 )
 
-data class EncounterDay(
+data class AdventuringDay(
     val weather: String,
 
     val events: List<Event>

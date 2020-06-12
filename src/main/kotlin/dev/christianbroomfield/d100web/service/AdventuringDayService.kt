@@ -6,8 +6,8 @@ import dev.christianbroomfield.d100web.model.encounter.AdventuringDay
 import dev.christianbroomfield.d100web.model.encounter.Event
 import dev.christianbroomfield.d100web.model.encounter.EventType
 import dev.christianbroomfield.d100web.model.encounter.TimeOfDay
-import mu.KotlinLogging
 import kotlin.random.Random
+import mu.KotlinLogging
 
 private const val D6_MAX = 6
 private const val D10_MAX = 10

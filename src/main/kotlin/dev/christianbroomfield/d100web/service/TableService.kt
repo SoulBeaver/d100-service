@@ -3,15 +3,15 @@ package dev.christianbroomfield.d100web.service
 import com.mongodb.MongoClient
 import dev.christianbroomfield.d100web.model.TableGroup
 import dev.christianbroomfield.d100web.model.TableGroupName
-import org.litote.kmongo.getCollection
-import org.litote.kmongo.findOne
-import org.litote.kmongo.eq
-import mu.KotlinLogging
-import org.litote.kmongo.contains
-import org.litote.kmongo.regex
 import kotlin.random.Random
+import mu.KotlinLogging
+import org.litote.kmongo.eq
+import org.litote.kmongo.findOne
+import org.litote.kmongo.getCollection
+import org.litote.kmongo.regex
 
 private val log = KotlinLogging.logger {}
+
 class TableService(private val client: MongoClient) {
     private val tableGroupDatabase = client.getDatabase("tables")
     private val tableGroupCollection = tableGroupDatabase.getCollection<TableGroup>()

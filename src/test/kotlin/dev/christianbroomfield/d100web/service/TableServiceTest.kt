@@ -20,7 +20,6 @@ import io.mockk.mockk
 import org.bson.conversions.Bson
 import org.litote.kmongo.findOne
 import org.litote.kmongo.getCollection
-import java.lang.IllegalArgumentException
 
 class TableServiceTest : DescribeSpec() {
     private val mongoClient = mockk<MongoClient>()

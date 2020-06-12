@@ -5,21 +5,22 @@ import dev.christianbroomfield.d100web.model.TableGroupName
 import dev.christianbroomfield.d100web.service.TableService
 import mu.KotlinLogging
 import org.http4k.core.Body
+import org.http4k.core.Method.DELETE
 import org.http4k.core.Method.GET
 import org.http4k.core.Method.POST
-import org.http4k.core.Method.DELETE
 import org.http4k.core.Request
 import org.http4k.core.Response
 import org.http4k.core.Status.Companion.NOT_FOUND
 import org.http4k.core.Status.Companion.OK
 import org.http4k.core.with
+import org.http4k.format.Jackson.auto
 import org.http4k.lens.Path
+import org.http4k.lens.string
 import org.http4k.routing.bind
 import org.http4k.routing.routes
-import org.http4k.format.Jackson.auto
-import org.http4k.lens.string
 
 private val log = KotlinLogging.logger {}
+
 class TableResource(private val service: TableService) {
     private val pathTableGroupName = Path.string().of("name")
 

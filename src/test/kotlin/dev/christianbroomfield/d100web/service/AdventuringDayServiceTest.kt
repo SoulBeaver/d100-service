@@ -7,8 +7,8 @@ import dev.christianbroomfield.d100.model.Table
 import dev.christianbroomfield.d100.model.TableHeader
 import dev.christianbroomfield.d100web.model.TableGroup
 import dev.christianbroomfield.d100web.model.TableGroupName
-import dev.christianbroomfield.d100web.model.encounter.Difficulty
 import dev.christianbroomfield.d100web.model.encounter.AdventuringDay
+import dev.christianbroomfield.d100web.model.encounter.Difficulty
 import dev.christianbroomfield.d100web.model.encounter.Event
 import dev.christianbroomfield.d100web.model.encounter.EventType
 import dev.christianbroomfield.d100web.model.encounter.TimeOfDay

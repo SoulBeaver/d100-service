@@ -4,11 +4,12 @@ import com.beust.klaxon.Klaxon
 import com.mongodb.MongoClient
 import com.mongodb.client.MongoCollection
 import dev.christianbroomfield.d100web.model.TableGroup
+import java.io.File
 import mu.KotlinLogging
 import org.litote.kmongo.getCollection
-import java.io.File
 
 private val log = KotlinLogging.logger {}
+
 object StartupTask {
     operator fun invoke(mongodb: MongoClient, dataDirectoryPath: String) {
         val tableGroupDatabase = mongodb.getDatabase("tables")
